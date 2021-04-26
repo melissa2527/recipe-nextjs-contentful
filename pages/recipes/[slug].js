@@ -33,7 +33,9 @@ export async function getStaticProps({params}) {
   })
 
   return {
-    props: {recipe: items[0]}
+    props: {recipe: items[0]},
+    revalidate: 1
+    // this checks for static regeneration, checks at most every 1 second
   }
 }
 
