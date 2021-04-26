@@ -11,7 +11,7 @@ const client = createClient({
 
 export const getStaticPaths = async () => {
   const res = await client.getEntries({
-    content_type: 'recipe'
+    content_type: 'recipe',
   })
 
   const paths = res.items.map(item => {
@@ -33,6 +33,15 @@ export async function getStaticProps({params}) {
     content_type: 'recipe',
     'fields.slug': params.slug
   })
+  
+  if (!items.length) {
+    return {
+      redirect: {
+        destination: '/',
+        permanent: false
+      }
+    }
+  }
 
   return {
     props: {recipe: items[0]},
