@@ -2,6 +2,7 @@ import {createClient} from 'contentful';
 import Image from 'next/image';
 import {documentToReactComponents} from '@contentful/rich-text-react-renderer';
 import styles from './Slug.module.scss'
+import Default from '../../components/Default';
 
 const client = createClient({
   space: process.env.CONTENTFUL_SPACE_ID,
@@ -21,8 +22,9 @@ export const getStaticPaths = async () => {
 
   return {
     paths,
-    fallback: false
-    // will show a 404 page instead of a fallback page
+    fallback: true
+    // will show a 404 page instead of a fallback page (if it is false)
+    // if fallback is shown to true - show a fallback page
   }
 }
 
@@ -40,6 +42,8 @@ export async function getStaticProps({params}) {
 }
 
 export default function RecipeDetails({recipe}) {
+  if (!recipe) return <Default/>
+
   const {title, time, featuredImage, method, ingredients} = recipe.fields;
   console.log(recipe)
   return (
@@ -51,8 +55,8 @@ export default function RecipeDetails({recipe}) {
         height={featuredImage.fields.file.details.image.height}/>
       </div>
       <div className={styles.info}>
-        <p>Takes about {time} minutes to cook</p>
-        <h3>Ingredients:</h3>
+      <p>Approximate time: {time} minutes</p>
+      <h3>Ingredients:</h3>
         <ul>
         {ingredients.map(ing => (
           <li key={ing}>{ing}</li>
