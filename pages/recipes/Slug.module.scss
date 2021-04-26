@@ -1,0 +1,17 @@
+.banner h1, .info h3, .method h3 {
+    text-transform: uppercase;
+}
+.banner h1 {
+    margin: 0;
+    background: #fff;
+    padding: 20px;
+    top: -60px;
+    position: relative;
+    left: -10px;
+    transform: rotateZ(-1deg);
+    box-shadow: 1px 3px 5px rgba(0, 0, 0, 0.1);
+}
+
+.info p {
+    margin: 0;
+}
