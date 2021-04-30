@@ -3,6 +3,7 @@ import Image from 'next/image';
 import {documentToReactComponents} from '@contentful/rich-text-react-renderer';
 import styles from './Slug.module.scss'
 import Default from '../../components/Default';
+import React, {useEffect} from 'react';
 
 const client = createClient({
   space: process.env.CONTENTFUL_SPACE_ID,
@@ -54,7 +55,11 @@ export default function RecipeDetails({recipe}) {
   if (!recipe) return <Default/>
 
   const {title, time, featuredImage, method, ingredients} = recipe.fields;
-  console.log(recipe)
+  
+  useEffect(() => {
+    document.title = `Recipe - ${title}`
+  }, [])
+
   return (
     <div>
       <div className={styles.banner}>
